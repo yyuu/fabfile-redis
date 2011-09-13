@@ -58,16 +58,16 @@ def build():
 ## patch
     local("""
       if test -d %(patches)s; then
-        opt QUILT_PATCHES=%(patches)s quilt push -a
+        umask 022; env QUILT_PATCHES=%(patches)s quilt push -a
       fi
     """ % opt)
 ## configure
 #   local("""
-#     ./configure --prefix=%(prefix)s
+#     umask 022; ./configure --prefix=%(prefix)s
 #   """ % opt)
 ## build/test/install
     local("""
-      make -j4 && make -j4 test && make -j4 PREFIX=%(prefix)s install
+      umask 022; make -j4 && make -j4 test && make -j4 PREFIX=%(prefix)s install
     """ % dict(prefix=os.path.realpath(opt.target + os.path.sep + opt.prefix)))
 
 @task

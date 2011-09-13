@@ -1,0 +1,7 @@
+/.*.swo
+/.*.swp
+/*.pyc
+/*.pyo
+/redis-*
+/target
+!/redis-*.tar.gz

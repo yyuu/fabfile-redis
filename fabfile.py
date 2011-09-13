@@ -36,9 +36,17 @@ opt.patches = (lambda: opt.extracted + '.patches')
 
 @task
 def setup():
+  clean()
   build()
   upload()
   symlink()
+
+@task
+@runs_once
+def clean():
+  local("""
+    rm -rf %(extracted)s %(target)s
+  """ % opt)
 
 @task
 @runs_once
@@ -68,7 +76,7 @@ def upload():
     test -d %(prefix)s || mkdir -p %(prefix)s
   """ % opt)
   local_dir = os.path.realpath(opt.target + os.path.sep + opt.prefix) + os.path.sep
-  project.rsync_project(local_dir=local_dir, remote_dir=opt.prefix, delete=True, extra_opts='--chmod=Du+rwx,Dgo+rx,Fu+rw,Fgo+r --verbose')
+  project.rsync_project(local_dir=local_dir, remote_dir=opt.prefix, delete=True, extra_opts='--chmod=Du+rwx,Dgo+rx,Fu+rw,Fgo+r')
 
 @task
 def symlink():

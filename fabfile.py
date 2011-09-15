@@ -26,7 +26,8 @@ class LazyAttributeDictionary(dict):
       self.__setitem__(key, val)
     return val
 
-env.user = 'deploy'
+if env.user is None:
+  env.user = os.getenv('USER')
 opt = LazyAttributeDictionary(env)
 opt.prefix = (lambda: os.path.join('/u/apps/redis', re.findall('(?:[0-9]+\.)*[0-9]+', opt.archive)[0]))
 opt.target = os.path.realpath('./target')

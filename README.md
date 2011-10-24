@@ -9,7 +9,7 @@ Fabric recipe to install Redis.
 
 * Fabric
 
-You may need other packages from Redis. (such like Tcl8.5)
+You may also need to install other dependencies to satisfy requirements of Kyoto Tycoon. (such like Tcl8.5)
 
 
 ## Operations
